@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tweenMax</title>
+  <script src="js/greensock-js/TweenMax.min.js"> </script>
+
+</head>
+<style>
+  .box{
+  position:relative;
+  top:20px;
+  width:10px;
+  height:10px;
+  background:#6fb936;
+  border-radius:10px;
+}
+</style>
+<body>
+  <div class="box"></div>
+</body>
+<script>
+  TweenMax.to('.box', 6, {x: 700,y:100,});
+TweenMax.to('.box', 3, {x: 200,overwrite:"none"});
+//或者
+TweenMax.to('.box', 3, {x: 200,overwrite:0});
+</script>
+</html>

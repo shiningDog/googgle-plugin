@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="./svg.js"></script>
+  <style>
+    /* .log {
+      background-color: #f06;
+    }
+   */
+   .drawing{
+     width: 640px;
+     height: 667px;
+     margin: 0 auto;
+   }
+    .s_path { stroke-dasharray: 320; stroke-dashoffset: 0; animation: dash 1s linear; }
+     @keyframes dash { from { stroke-dashoffset: 320; } to { stroke-dashoffset: 0; } }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="layout">
+      <div class="content">
+        <!-- log -->
+        <div class="log">
+          <div class="drawing"></div>
+          <!-- <img src="./images/log.png" alt=""> -->
+        </div>
+        <!-- body -->
+        <div class="body" ref="box">
+          <!-- nav-title -->
+          <div class="nav-box">
+            <div class="arrows">
+              <img src="./images/arrows.svg" alt="">
+            </div>
+            <div class="nav-item">
+              PUBLIC
+            </div>
+            <div class="nav-item">
+              PMO
+            </div>
+            <div class="nav-item">
+              PM
+            </div>
+            <div class="nav-item">
+              UX
+            </div>
+            <div class="nav-item active">
+              FE
+            </div>
+            <div class="nav-item">
+              JAVA
+            </div>
+            <div class="nav-item">
+              QA
+            </div>
+          </div>
+          <div class="url-box">
+
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        Copyright © 2020 平安银行可视化研究室
+      </div>
+    </div>
+
+
+    <div class="dialog">
+      <div class="shade">
+        <div class="content">
+          <div class="title">
+            <span>添加快捷方式</span>
+            <img class="close" src="./images/close.svg" alt="">
+          </div>
+          <div class="form">
+            <div class="form-ipt">
+              <span class="requisite-span">*</span><span>名称：</span><input name="name" type="text" autocomplete="off"
+                placeholder="请输入名称" />
+            </div>
+            <div class="form-ipt">
+              <span class="requisite-span">*</span><span>地址：</span><input name="site" type="text" autocomplete="off"
+                placeholder="请输入链接地址" />
+            </div>
+            <div class="form-ipt">
+              <span class="requisite-span"></span><span>备注：</span><input type="text" name="remark" autocomplete="off"
+                placeholder="请输入备注信息" />
+            </div>
+          </div>
+          <div class="group-btn">
+            <div class="close default-btn">取消</div>
+            <div class="commit prime-btn">确定</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+<script src="./js/index.js"></script>
+
+</html>

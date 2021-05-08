@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "Vslab",
+  "description": "平安银行可视化项目组Vslab ",
+  "version": "0.0.1",
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "notifications",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "browser_action": {
+    "default_title": "这是一个示例Chrome插件",
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "index.html",
+    "chrome_style": true
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "content_scripts":[
+  {
+  "matches": ["<all_urls>"],
+	"js": ["js/index.js"]
+  }
+]
+}

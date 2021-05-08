@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="./svg.js"></script>
+    <script type="text/javascript">
+  return
+    SVG.on(document, 'DOMContentLoaded', function () {
+      var circleR = 12;//球直径
+      var initX = 200;//初始位置
+      var changeY = 200;//变化位置
+      var maxH = 70; //字母最大高度
+      var minH = 55;//字母最小高度
+      var space = 10;//字母间距
+      var thick = 12; //字母宽度
+      var incline = 20;//倾斜值
+      var rowShift = 72
+      var colShift = 49
+      var draw = SVG().addTo('#drawing').size(760, 300)
+        // 球一
+      var v_dot = draw.circle(circleR).fill({color:'#377efc'})
+      v_dot.attr({x:circleR}).move(initX,0).animate({duration: 150}).move(initX,changeY).animate({duration:250,delay: 0}).move(initX - thick,changeY-minH)
+      // 球二
+      setTimeout(function(){
+          b_dot = draw.circle(circleR).fill({color:'#377efc'}).move(initX,changeY).bbox(['c',20,20,40,20,50,10])
+      },150)
+      // 球_s
+      var s_dot = draw.circle(circleR).fill({color:'#f55336'})
+      // 画---- V_l
+      function drawV_l(cb){
+        v_dot.remove()  
+          var dot_1_x = initX - thick
+          var dot_1_y = changeY-minH
+          var dot_2_x = initX
+          var dot_2_y = changeY-minH
+          var dot_3_x = initX + incline
+          var dot_3_y = changeY-minH + minH
+          var dot_4_x = initX -thick +incline
+          var dot_4_y = changeY-minH + minH
+        var polygon = draw.polygon(''+dot_1_x+' '+dot_1_y +','+dot_2_x +' '+dot_2_y+','+dot_2_x+' '+dot_2_y+','+dot_1_x+','+dot_1_y).fill({color:'#377efc'}).animate({duration:250}).plot([[dot_1_x,dot_1_y], [dot_2_x,dot_2_y], [dot_3_x,dot_3_y], [dot_4_x,dot_4_y]])
+        setTimeout(cb,250)
+      }
+      // 球一 ------ V_R
+      function drawV_R(cb){
+        var dot_1_x = initX - thick + 45
+        var dot_1_y = changeY-minH
+        var dot_2_x = initX + 45
+        var dot_2_y = changeY-minH
+        var dot_3_x = initX + incline + 1
+        var dot_3_y = changeY-minH + minH - 2
+        var dot_4_x = initX -thick +incline + 8
+        var dot_4_y = changeY-minH + minH - 16
+        var polygon = draw.polygon(''+dot_1_x+' '+dot_1_y +','+dot_2_x +' '+dot_2_y+','+dot_3_x+' '+dot_3_y+','+dot_4_x+' '+dot_4_y).fill({color:'#377efc'}).animate({duration:100}).plot([[dot_1_x+10,dot_1_y-10], [dot_2_x+10,dot_2_y-10], [dot_3_x+10,dot_3_y-10], [dot_4_x+10,dot_4_y - 10]]).animate({duration:100,delay:100}).plot([[dot_1_x,dot_1_y], [dot_2_x,dot_2_y], [dot_3_x,dot_3_y], [dot_4_x,dot_4_y]])
+        setTimeout(cb,200)
+      }
+
+
+      function drawS(){
+        var dot_1_x = initX - thick + rowShift
+        var dot_1_y = changeY-minH + colShift
+        var dot_2_x = initX + rowShift + 23
+        var dot_2_y = changeY-minH + colShift
+        s_dot.move(100,changeY - circleR).animate({duration:600,delay: 0}).move(dot_1_x- circleR/2,changeY-circleR)
+        var H_x = 'M ' + dot_1_x + ' '+ dot_1_y +' L '+ (dot_1_x+1) + ' '+ dot_2_y
+        var BezierSpline = 'M' + dot_1_x + ','+ dot_1_y+' L '+ (dot_1_x + 35) + ' '+ dot_1_y +' Q'+(dot_1_x + 50)+','+(dot_1_y - (space/2)-(thick/2))+' '+(dot_1_x + 35)+','+(dot_1_y - 1.5*space-(thick/2)) +' L ' + (dot_1_x + 15)+','+(dot_1_y - 1.5*space-(thick/2)) +' Q '+dot_1_x +','+(dot_1_y - 2.5*space-(thick/2)) + ' '+ (dot_1_x + 15) + ','+(dot_1_y - 44) + ' L ' + (dot_1_x + 50) +','+(dot_1_y - 44)
+        console.log(BezierSpline)
+        setTimeout(function(){
+          s_dot.remove()
+          var path = draw.path(H_x).addClass('s_path').stroke({ width:thick}).fill({color:'transparent'}).css({stroke:'#f55336'}).plot(BezierSpline)
+        },600)
+      } 
+
+      
+      function drawL(){
+        var dot_1_x = initX - thick + 2*rowShift
+        var dot_1_y = changeY-minH + colShift +4
+        var H_x = 'M ' + (dot_1_x + (thick/2))  + ' '+ dot_1_y +' L '+ (dot_1_x+thick) + ' '+ (dot_1_y - 8)+' L '+ (dot_1_x+thick) + ' '+ (dot_1_y - 76)+' L '+ dot_1_x + ' '+ (dot_1_y - 76)+' L '+ dot_1_x + ' '+ (dot_1_y - 8)
+        setTimeout(function(){
+          var path = draw.path(H_x).stroke({ width:1}).fill({color:'#ffb808'}).css({stroke:'#ffb808'})
+        },600)
+      } 
+
+
+      setTimeout(function(){
+        drawV_l(drawV_R)
+      },400)
+      setTimeout(function(){
+        drawS()
+      },0)
+      setTimeout(()=>{
+        drawL()
+      })
+      var b_dot = ''
+    
+     
+      
+      // var rect = draw.circle(20).attr({x:20}).animate().move(100,100).timeline().speed(1.5)
+      setTimeout(function(){
+        // draw.rect(100, 100).attr({x:100}).animate().move(100,100).timeline().speed(1.5)
+      },200)
+    })
+  </script>
+  <style>
+    /* .log {
+      background-color: #f06;
+    }
+   */
+   .drawing{
+     width: 760px;  
+     height: 300px;
+     background-image:url('./images/Vslab.png') ;
+   }
+    .s_path { stroke-dasharray: 320; stroke-dashoffset: 0; animation: dash 1s linear; }
+     @keyframes dash { from { stroke-dashoffset: 320; } to { stroke-dashoffset: 0; } }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="layout">
+      <div class="content">
+        <!-- log -->
+        <div class="log">
+          <div class="drawing">
+              <img src="" alt="">
+          </div>
+          <!-- <img src="./images/log.png" alt=""> -->
+        </div>
+        <!-- body -->
+        <div class="body" ref="box">
+          <!-- nav-title -->
+          <div class="nav-box">
+            <div class="arrows">
+              <img src="./images/arrows.svg" alt="">
+            </div>
+            <div class="nav-item">
+              PUBLIC
+            </div>
+            <div class="nav-item">
+              PMO
+            </div>
+            <div class="nav-item">
+              PM
+            </div>
+            <div class="nav-item">
+              UX
+            </div>
+            <div class="nav-item active">
+              FE
+            </div>
+            <div class="nav-item">
+              JAVA
+            </div>
+            <div class="nav-item">
+              QA
+            </div>
+          </div>
+          <div class="url-box">
+
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        Copyright © 2020 平安银行可视化研究室
+      </div>
+    </div>
+
+
+    <div class="dialog">
+      <div class="shade">
+        <div class="content">
+          <div class="title">
+            <span>添加快捷方式</span>
+            <img class="close" src="./images/close.svg" alt="">
+          </div>
+          <div class="form">
+            <div class="form-ipt">
+              <span class="requisite-span">*</span><span>名称：</span><input name="name" type="text" autocomplete="off"
+                placeholder="请输入名称" />
+            </div>
+            <div class="form-ipt">
+              <span class="requisite-span">*</span><span>地址：</span><input name="site" type="text" autocomplete="off"
+                placeholder="请输入链接地址" />
+            </div>
+            <div class="form-ipt">
+              <span class="requisite-span"></span><span>备注：</span><input type="text" name="remark" autocomplete="off"
+                placeholder="请输入备注信息" />
+            </div>
+          </div>
+          <div class="group-btn">
+            <div class="close default-btn">取消</div>
+            <div class="commit prime-btn">确定</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+<script src="./js/index.js"></script>
+
+</html>
